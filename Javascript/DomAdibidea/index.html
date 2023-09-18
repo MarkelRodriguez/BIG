@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <h3 id="intro">Introducción</h3>
+    <script>
+        var nodo = document.getElementById("intro");
+        nodo.style.color = "red";
+        nodo.onmouseover = function () {
+            this.style.color = "blue";
+        };
+        nodo.onmouseout = function () {
+            this.style.color = "blue";
+        };
+    </script>
+    <img src="1.gif" id="img1" />
+    <script>
+        setTimeout("document.getElementById('img1').src='2.gif'", 3000);
+    </script>
+
+
+    <ul>
+        <li><a href=“bat.html">Lehenengo esteka</a></li>
+        <li><a href=“bi.html" target="new">Bigarren esteka</a></li>
+        <li><a href=“hiru.html">Hirugarren esteka</a></li>
+    </ul>
+    <script>
+        var nodos = document.getElementsByTagName("a")
+        for (var i = 0; i < nodos.length; ++i) {
+            nodos[i].onmouseover = function () {
+                this.style.backgroundColor = 'green'
+            }
+            nodos[i].onmouseout = function () {
+                this.style.backgroundColor = ''
+            }
+        }
+    </script>
+
+
+    <div id="paragrafoa"> Paragrafo honen barruan gauza asko daude:
+        <ul>
+            <li>Zerrenda</li>
+            <li>bat</li>
+        </ul>
+        <table border=1>
+            <tr>
+                <td>Eta</td>
+                <td>taula bat</td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        function aldatu() {
+            var el = document.getElementById("paragrafoa");
+            el.innerHTML ="Eta osorik aldatzen dut"+
+            "<ol><li>nahita</li><li>zerrenda bat sartu</li ></ol >" ;
+        }
+        setTimeout( "aldatu()", 1000 );
+    </script>
+</body>
+
+</html>
