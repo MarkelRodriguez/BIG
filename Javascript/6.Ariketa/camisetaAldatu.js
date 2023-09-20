@@ -1,34 +1,31 @@
-function CamisetaAurrera(){
-    var camiseta;
-  
-    if(document.getElementById("camiseta") == "Camiseta 6"){
-        camiseta = document.getElementById("camiseta");
-        camiseta.innerHTML = "Camiseta 9";
-        document.getElementById("camisetaimg").src = "/img/9.jpg"
-    } 
-    else if(document.getElementById("camiseta") == "Camiseta 9"){
-        camiseta = document.getElementById("camiseta");
-        camiseta.innerHTML = "Camiseta 11";
-        document.getElementById("camisetaimg").src = "/img/11.jpg"
-    } 
-    else{
-        alert("ezin da mugimendu hori egin")
-    }
+var imagenes = ["img/6.jpg", "img/9.jpg", "img/11.jpg"];
+var indice = 0;
+var imagen = document.getElementById("camiImg");
+var nombreArchivoElement = document.getElementById("nombreArchivo");
+
+function aldatuAtzera() {
+    if (indice > 0) {
+        indice--;
+        imagen.src = imagenes[indice];
+        actualizarNombreArchivo();
+    } else {
+        alert("Ezin da atzera egin");
+    }
 }
-function CamisetaAtzera(){
-    var camiseta;
-  
-    if(document.getElementById("camiseta") == "Camiseta 11"){
-        camiseta = document.getElementById("camiseta");
-        camiseta.innerHTML = "Camiseta 9";
-        document.getElementById("camisetaimg").src = "/img/9.jpg"
-    } 
-    else if(document.getElementById("camiseta") == "Camiseta 9"){
-        camiseta = document.getElementById("camiseta");
-        camiseta.innerHTML = "Camiseta 6";
-        document.getElementById("camisetaimg").src = "/img/6.jpg"
-    } 
-    else{
-        alert("ezin da mugimendu hori egin")
-    }
+
+function aldatuAurrera() {
+    if (indice < imagenes.length - 1) {
+        indice++;
+        imagen.src = imagenes[indice];
+        actualizarNombreArchivo();
+    } else {
+        alert("Ezin da aurrera egin");
+    }
 }
+
+function actualizarNombreArchivo() {
+    var nombreImagen = imagenes[indice];
+    var nombreSinExtension = nombreImagen.split("/").pop().split(".")[0];
+    nombreArchivoElement.textContent = nombreSinExtension;
+}
+

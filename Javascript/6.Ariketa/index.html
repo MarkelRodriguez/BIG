@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="camisetaAldatu.js"></script>
-    <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kamisetak</title>
+    
 </head>
 <body>
-    
-        <h3>Pulsa adelante o atras</h3>
-        <br>
-
-        <h2 id = "camiseta"> Camiseta 6</h2>
-        <br>
-
-        <img id="camisetaimg" src="/img/6.jpg">
-
-        <button id="atras" onclick=CamisetaAtzera()>Atras</a>
-        <button id="adelante" onclick=AldatuAurrera()>Adelante</a>
-
-        
-        
+    <div style="text-align: center;">
+        <h4>Pulsa adelante o atrás</h4>
+        <br>
+        <h2 id="numcami">Camiseta</h2>
+        <h3 id="nombreArchivo">Nombre del archivo</h3>
+        <br>
+        <img src="img/6.jpg" id="camiImg">
+    </div>
+    <br>
+    <div style="text-align: center;">
+        <button onclick="aldatuAtzera()">atras</button>
+        <button onclick="aldatuAurrera()">adelante</button>
+    </div>
+    <script src="camisetaAldatu.js"></script>
+    
 </body>
 </html>
