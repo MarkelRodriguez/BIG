@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <form id="f1"></form>
+            <div class="col-md-4">
+
+
+                <div class="mb-3">
+                    <label for="gender">Zuzentzeko era</label>
+                    <input type="radio" value="jauna" name="gender" id="genderjauna" checked="true"
+                        onchange="argazkiaAldatu()">Jauna
+                    <input type="radio" value="andrea" name="gender" id="genderandrea"
+                        onchange="argazkiaAldatu()">Andrea
+                </div>
+                <div class="mb-3">
+                    <label for="izena">Izena</label>
+                    <input type="text" id="izena">
+                </div>
+                <div class="mb-3">
+                    <label for="abizena">Abizena</label>
+                    <input type="text" id="abizena">
+                </div>
+                <div class="mb-3">
+                    <label for="helbidea">helbidea</label>
+                    <input type="email" id="helbidea">
+                </div>
+                <div class="mb-3">
+                    <label for="hiria">Hiria</label>
+                    <select name="hiria" id="hiria">
+                        <option value="eibar">Eibar</option>
+                        <option value="bilbao">Bilbao</option>
+                        <option value="donosti">Donosti</option>
+                        <option value="vitoria">Vitoria</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="gustoak">Gustokoena</label>
+                    <input type="checkbox" id="gustoak" name="liburuak">Liburuak
+                    <input type="checkbox" id="gustoak" name="pelikulak">pelikulak
+                </div>
+                
+            </div>
+
+            </form>
+                <div class="mb-3">
+                    <button type="submit" onclick=datuakBistaratu()>Bidali</button>
+                    <button type="reset">Ezeztatu</button>
+                </div>
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <img src="img/caraHombre.jpg" id="argazkia">
+
+                    <h3>Sartu dituzun datuak:</h3>
+                    <p id = "emaitzamezua"></p>
+                    
+
+
+                </div>
+
+            </div>
+            <script src="script.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
+                crossorigin="anonymous"></script>
+        </div>
+    </div>
+</body>
+
+</html>
