@@ -1,0 +1,10 @@
+
+#cohete {
+    width: 30px;
+    height: 30px;           
+    position: absolute;
+    background-size: cover;
+}
+body{
+    background-image: url('img/spacestars.jpg'); 
+}
