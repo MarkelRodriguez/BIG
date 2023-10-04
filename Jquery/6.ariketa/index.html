@@ -12,6 +12,46 @@
     <div id="cohete">
         <img src="img/rocket.png" alt=""> 
     </div>
+    <script>
+        const cohete = $("#cohete"); /*Ponemos la posicion 0,0 del cohete en la pantalla, es decir la parte de arriba a al izquierda*/
+        let posX = 0;
+        let posY = 0;
 
+        function moveRocket() {
+            cohete.css("left", posX + "px");
+            cohete.css("top", posY + "px");
+        }
+
+        $(document).keydown(function(event) {
+        switch (event.key) {
+            case "ArrowLeft":
+            case "a":
+                posX -= 100;
+                cohete.css("transform", "rotate(-90deg)");/* Girar hacia la izquierda */
+                cohete.animate({ left: posX + "px" }, 1000);/* Moverlo 100 pixeles a la izquierda(X)*/
+                break;
+            case "ArrowRight":
+            case "d":
+                posX += 100;
+                cohete.css("transform", "rotate(90deg)");/* Girar hacia la derecha */
+                cohete.animate({ left: posX + "px" }, 1000);/* Moverlo 100 pixeles a la derecha(X)*/
+                break;
+            case "ArrowUp":
+            case "w":
+                posY -= 100;
+                cohete.css("transform", "rotate(0deg)");/* Girar hacia arriba */
+                cohete.animate({ top: posY + "px" }, 1000);/* Moverlo 100 pixeles hacia arriba(Y)*/
+                break;
+            case "ArrowDown":
+            case "s":
+                posY += 100;
+                cohete.css("transform", "rotate(180deg)");/* Girar hacia abajo */
+                cohete.animate({ top: posY + "px" }, 1000);/* Moverlo 100 pixeles hacia abajo(Y)*/
+                break;
+        }
+        });
+
+        moveRocket();
+    </script>
 </body>
 </html>
