@@ -97,12 +97,11 @@ export class ApiService {
                 atleta_id: res.rows.item(i).atleta_id
           });
         }
-        this.JarduerakList.next(items);
-        
       }
+      return items;
     } catch (error) {
       console.error("errorea getJarduerak", error);
-      
+      return [];
     }
   }
 
@@ -120,8 +119,8 @@ export class ApiService {
   }
 
   //getKluba() lortutako datuak bueltatzen ditu, tab1-jarduerak orrian erabiltzen da
-  fetchKluba(id: any): Observable<Kluba> {
-    const kluba = this.klubakList.value.find(kluba => kluba.id === id);
+  fetchKluba(id: any): Observable<Kluba | any> {
+    const kluba =  this.klubakList.value.find(kluba => kluba.id === id);
     return of(kluba);
   }
 }
