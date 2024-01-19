@@ -18,6 +18,7 @@ import { Jarduera } from '../classes/jarduera';
 export class ApiService {
   private storage!: SQLiteObject;
   klubakList = new BehaviorSubject<Kluba[]>([]);
+  jarduerakList = new BehaviorSubject<Jarduera[]>([]);
   private isDbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   //url nagusia, orain ip-a jarriko da bestela mobilaren localhost-arekin nahasketa sortzen da
@@ -60,6 +61,7 @@ export class ApiService {
             //online gaude. Sinkronizatu
             this.syncService.synchronize();
           }
+          this.getJarduerak();
           this.getKlubak();
           this.isDbReady.next(true);
         })
@@ -111,12 +113,16 @@ export class ApiService {
                 atleta_id: res.rows.item(i).atleta_id
           });
         }
-        return items;
+        this.jarduerakList.next(items);
+        
       }
     } catch (error) {
       console.error("errorea getJarduerak", error);
-      return [];
+      
     }
+  }
+  fetchJarduerak(): Observable<Jarduera[]> {
+    return this.jarduerakList.asObservable();
   }
   //getKlubak() sortutako zerrenda bueltatzen du, tab1 orrian erabiltzen da
   fetchKlubak(): Observable<Kluba[]> {
@@ -198,6 +204,48 @@ export class ApiService {
     this.getKlubak();
   }
 
+  async addJarduera(jarduera: Jarduera){
+    let data = [jarduera.name, jarduera.distance, jarduera.moving_time, jarduera.elapsed_time, jarduera.type, jarduera.workout_type, jarduera.atleta_id];
+    const res = await this.storage.executeSql('INSERT INTO Jardueras (name, distance, moving_time, elapsed_time, type, workout_type, atleta_id) VALUES (?, ?, ?, ?, ?, ?, ?)', data);
+    let payload = {
+      name: jarduera.name,
+      distance: jarduera.distance,
+      moving_time: jarduera.moving_time,
+      elapsed_time: jarduera.elapsed_time,
+      type: jarduera.type,
+      workout_type: jarduera.workout_type,
+      atleta_id: jarduera.atleta_id
+    };
+    const jsonString: string = JSON.stringify(payload);
+    let transaction: Transaction = {
+      endpoint : this.url +'/jarduerak' ,
+      method : "POST",
+      payload : jsonString,
+      };
+    this.addTransaction(transaction);
+    if (this.networkService.getStatus()){
+      //online gaude. Sinkronizatu
+      this.syncService.synchronize();
+    }
+
+    this.getJarduerak();
+  }
+  async deleteJarduera(id:any){
+
+    const _ = await this.storage.executeSql('DELETE FROM Jardueras WHERE id = ?', [id]);
+    let transaction: Transaction = {
+      endpoint : this.url + '/jarduerak/' + id,
+      method : "DELETE",
+      payload : '',
+      };
+    this.addTransaction(transaction);
+    if (this.networkService.getStatus()){
+      //online gaude. Sinkronizatu
+      this.syncService.synchronize();
+    }
+    this.getJarduerak();
+
+  }
   //transakzio taulan gordetzeko
   async addTransaction(transaction: Transaction) {
     this.transactionService.addTransaction(transaction);

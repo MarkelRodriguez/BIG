@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { KlubaService} from '../services/kluba.service';
 import { ApiService} from '../services/api.service';
 import { Kluba } from '../classes/kluba';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -14,7 +15,7 @@ export class Tab1Page implements OnInit{
   //constructor(private klubaService: KlubaService) {}
   
   //sqlite
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private route: ActivatedRoute) {}
 
   /*
   getKlubak(): void{
@@ -34,6 +35,15 @@ export class Tab1Page implements OnInit{
      });
   }
   
+  deleteKluba(id: any): void{
+    this.apiService.dbState().subscribe((res) => {
+      if(res){
+        
+        this.apiService.deleteKluba(id);
+      }
+     });
+  }
+
   ngOnInit(): void {
     this.getKlubak();
   }

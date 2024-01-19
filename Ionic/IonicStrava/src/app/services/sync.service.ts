@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NetworkService } from './network.service';
 import { TransactionService } from './transaction.service';
 import { SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
+import { Jarduera } from '../classes/jarduera';
 
 @Injectable({
   providedIn: 'root',
@@ -49,6 +50,10 @@ export class SyncService {
           const kluba: Kluba = response;
           console.log('Received Kluba object:', kluba);
           this.transactionService.removeTransaction(transaction);
+
+          const jarduera: Jarduera = response;
+          console.log('Received Jarduera object:', jarduera);
+          this.transactionService.removeTransaction(transaction);
         },
         error: (error: any) => {
           console.error('Error synchronizing transaction', error);
@@ -60,6 +65,16 @@ export class SyncService {
   
   async synchronize_2(): Promise<void>{
     //lehenengo REST API-aren datu guztiak deskargatu
+    this.httpClient.get<Jarduera[]>(this.url+'/jarduerak').subscribe(apiData => {
+      //Lokalean dagoen guztia ezabatu
+      this.storage.executeSql('DELETE FROM jardueras');
+      //REST API-an dagoena lokalera pasatu
+      apiData.forEach(Record => {
+        const { id, name, distance, moving_time, elapsed_time, type, workout_type, atleta_id } = Record;
+        this.storage.executeSql('INSERT INTO jardueras (id, name, distance, moving_time, elapsed_time, type, workout_type, atleta_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [id, name, distance, moving_time, elapsed_time, type, workout_type, atleta_id]);
+      });
+    })
+
     this.httpClient.get<Kluba[]>(this.url).subscribe(apiData => {
       //Lokalean dagoen guztia ezabatu
       this.storage.executeSql('DELETE FROM klubas');

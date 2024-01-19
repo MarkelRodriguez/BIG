@@ -5,6 +5,7 @@ import { KlubaService } from '../services/kluba.service';
 import { ApiService } from '../services/api.service';
 
 import { Kluba } from '../classes/kluba';
+import { Jarduera } from '../classes/jarduera';
 
 @Component({
   selector: 'app-tab1-jarduerak',
@@ -13,6 +14,7 @@ import { Kluba } from '../classes/kluba';
 })
 export class Tab1JarduerakPage implements OnInit {
   kluba = {} as Kluba;
+  jarduerak: Jarduera[] = [];
   constructor(private apiService: ApiService, private route: ActivatedRoute, private location: Location) { }
 
   //laravel api
@@ -49,9 +51,29 @@ export class Tab1JarduerakPage implements OnInit {
             }
         )}
     });
-   }
-  ngOnInit() {
+  }
+  getJarduerak(): void{
+    this.apiService.dbState().subscribe((res) => {
+      if(res){
+        this.apiService.fetchJarduerak().subscribe(
+          data => {this.jarduerak = data;
+          }
+          
+        )
+      }
+     });
+  }
+  deleteJarduera(id: any): void{
+    this.apiService.dbState().subscribe((res) => {
+      if(res){
+        
+        this.apiService.deleteJarduera(id);
+      }
+    });
+  }
+  ngOnInit(): void {
     this.getKluba();
+    
   }
 
 }
